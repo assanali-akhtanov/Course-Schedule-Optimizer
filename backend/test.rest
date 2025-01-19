@@ -1,0 +1,33 @@
+###
+GET http://localhost:5000
+###
+
+###
+POST http://localhost:5000
+Content-Type: application/json
+
+{
+    "name":"Achraf", 
+    "school": "Rice University"
+}
+###
+
+
+###
+GET http://localhost:5000/setupUserTable
+###
+
+
+###
+POST http://localhost:5000/createNewUser
+Content-Type: application/json
+
+{
+    "first_name": "Achraf",
+    "last_name": "Azzaoui",
+    "email": "aa270@rice.edu", 
+    "school": "Rice University",
+    "academic_standing": "SOPHOMORE",
+    "expected_grad_date": "2027-05-01"
+}
+###

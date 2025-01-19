@@ -5,7 +5,7 @@ services:
       dockerfile: frontend.Dockerfile
       context: ./frontend
     ports:
-      - "3000:3000"
+      - "80:80"
     depends_on:
       - backend
 
@@ -15,6 +15,12 @@ services:
       context: ./backend
     ports:
       - "5000:5000"
+    environment:
+      POSTGRES_DB_USER: ${POSTGRES_DB_USER}
+      POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
+      POSTGRES_DB_HOST: backend_database
+      POSTGRES_DB_PORT: 5432
     depends_on:
       - backend_database
 
@@ -25,7 +31,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB_NAME}
     volumes:
-      - postgres_data:/var/lib/postgresql/data # Persist data
+      - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 volumes:
