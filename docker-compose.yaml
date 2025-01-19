@@ -1,0 +1,32 @@
+version: "3"
+services:
+  frontend:
+    build:
+      dockerfile: frontend.Dockerfile
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      dockerfile: backend.Dockerfile
+      context: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - backend_database
+
+  backend_database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${POSTGRES_DB_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persist data
+    ports:
+      - "5432:5432"
+volumes:
+  postgres_data:
